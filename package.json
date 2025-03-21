@@ -1,18 +1,19 @@
 {
-  "name": "nodejs",
+  "name": "flip-frame",
   "version": "1.0.0",
-  "description": "Node template",
+  "description": "This is template to create flip frame games",
   "keywords": [
     "nodejs",
-    "javascript"
+    "javascript",
+    "flip-frame"
   ],
-  "homepage": "https://github.com/TheBookKnight/nodejs#readme",
+  "homepage": "https://github.com/TheBookKnight/flip-frame#readme",
   "bugs": {
-    "url": "https://github.com/TheBookKnight/nodejs/issues"
+    "url": "https://github.com/TheBookKnight/flip-frame/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TheBookKnight/nodejs.git"
+    "url": "git+https://github.com/TheBookKnight/flip-frame.git"
   },
   "license": "ISC",
   "author": "Joshua Cadavez",
