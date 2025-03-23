@@ -36,8 +36,9 @@ function App() {
             key={index}
             className={`tile ${flipped ? 'flipped' : ''}`}
             style={{
-              backgroundImage: `url(${imageSrc})`,
-              backgroundPosition: `${(index % gridSize) * -100 / (gridSize - 1)}% ${(Math.floor(index / gridSize)) * -100 / (gridSize - 1)}%`,
+              backgroundImage: flipped ? `url(${imageSrc})` : 'none',
+              backgroundPosition: flipped ? `${(index % gridSize) * 100 / (gridSize - 1)}% ${(Math.floor(index / gridSize)) * 100 / (gridSize - 1)}%` : 'none',
+              backgroundColor: flipped ? 'transparent' : 'white',
             }}
             onClick={() => handleClick(index)}
           />
