@@ -9,7 +9,21 @@ function App() {
 
   const handleClick = (index) => {
     const newTiles = [...tiles];
-    newTiles[index] = !newTiles[index];
+    const row = Math.floor(index / gridSize);
+    const col = index % gridSize;
+
+    const flipTile = (i) => {
+      if (i >= 0 && i < gridSize * gridSize) {
+        newTiles[i] = !newTiles[i];
+      }
+    };
+
+    flipTile(index);
+    if (col > 0) flipTile(index - 1); // left
+    if (col < gridSize - 1) flipTile(index + 1); // right
+    if (row > 0) flipTile(index - gridSize); // top
+    if (row < gridSize - 1) flipTile(index + gridSize); // bottom
+
     setTiles(newTiles);
   };
 
