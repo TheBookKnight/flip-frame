@@ -9,21 +9,7 @@ function App() {
 
   const handleClick = (index) => {
     const newTiles = [...tiles];
-    const row = Math.floor(index / gridSize);
-    const col = index % gridSize;
-
-    const flipTile = (i) => {
-      if (i >= 0 && i < gridSize * gridSize) {
-        newTiles[i] = !newTiles[i];
-      }
-    };
-
-    flipTile(index);
-    if (col > 0) flipTile(index - 1); // left
-    if (col < gridSize - 1) flipTile(index + 1); // right
-    if (row > 0) flipTile(index - gridSize); // top
-    if (row < gridSize - 1) flipTile(index + gridSize); // bottom
-
+    newTiles[index] = !newTiles[index];
     setTiles(newTiles);
   };
 
@@ -35,13 +21,19 @@ function App() {
           <div
             key={index}
             className={`tile ${flipped ? 'flipped' : ''}`}
-            style={{
-              backgroundImage: flipped ? `url(${imageSrc})` : 'none',
-              backgroundPosition: flipped ? `${(index % gridSize) * 100 / (gridSize - 1)}% ${(Math.floor(index / gridSize)) * 100 / (gridSize - 1)}%` : 'none',
-              backgroundColor: flipped ? 'transparent' : 'white',
-            }}
             onClick={() => handleClick(index)}
-          />
+          >
+            <div className="tile-inner">
+              <div className="tile-front"></div>
+              <div
+                className="tile-back"
+                style={{
+                  backgroundImage: `url(${imageSrc})`,
+                  backgroundPosition: `${(index % gridSize) * 100 / (gridSize - 1)}% ${(Math.floor(index / gridSize)) * 100 / (gridSize - 1)}%`,
+                }}
+              ></div>
+            </div>
+          </div>
         ))}
       </div>
     </div>
