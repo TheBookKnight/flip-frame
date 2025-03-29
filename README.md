@@ -1,4 +1,4 @@
-# nodejs
+# Flip Frame Template
 
 Nodejs template. Use node version in nvmrc file
 
