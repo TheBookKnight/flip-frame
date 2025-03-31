@@ -1,2 +1,2 @@
-export { flipTile } from './src/flipTile.js';
-export { flipSplashArea } from './src/flipSplashArea.js';
+export { flipTile } from './src/utils/flipTile.js';
+export { flipSplashArea } from './src/utils/flipSplashArea.js';
