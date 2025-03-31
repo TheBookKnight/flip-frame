@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './index.css';
-import { flipSplashArea } from '../../';
-import Grid from '../../src/components/grid';
+import { Grid, flipSplashArea } from '../../';
 
 const imageSrc = 'https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Test.jpg';
 const gridSize = 5; // 5x5 grid
