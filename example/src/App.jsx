@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './index.css';
-import { flipTile } from '../../';
+import { flipSplashArea } from '../../';
 
 const imageSrc = 'https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Test.jpg';
 const gridSize = 5; // 5x5 grid
@@ -10,15 +10,7 @@ function App() {
 
   const handleClick = (index) => {
     const newTiles = [...tiles];
-    const row = Math.floor(index / gridSize);
-    const col = index % gridSize;
-
-    flipTile(newTiles, gridSize, index);
-    if (col > 0) flipTile(newTiles, gridSize, index - 1); // left
-    if (col < gridSize - 1) flipTile(newTiles, gridSize, index + 1); // right
-    if (row > 0) flipTile(newTiles, gridSize, index - gridSize); // top
-    if (row < gridSize - 1) flipTile(newTiles, gridSize, index + gridSize);; // bottom
-
+    flipSplashArea(newTiles, gridSize, index); // flip the clicked tile and its neighbors
     setTiles(newTiles);
   };
 
