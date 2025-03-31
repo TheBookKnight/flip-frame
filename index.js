@@ -1,0 +1,1 @@
+export { flipTile } from './src/flipTile.js';

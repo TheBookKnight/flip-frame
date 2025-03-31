@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './index.css';
+import { flipTile } from '../../';
 
 const imageSrc = 'https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Test.jpg';
 const gridSize = 5; // 5x5 grid
@@ -12,17 +13,11 @@ function App() {
     const row = Math.floor(index / gridSize);
     const col = index % gridSize;
 
-    const flipTile = (i) => {
-      if (i >= 0 && i < gridSize * gridSize) {
-        newTiles[i] = !newTiles[i];
-      }
-    };
-
-    flipTile(index);
-    if (col > 0) flipTile(index - 1); // left
-    if (col < gridSize - 1) flipTile(index + 1); // right
-    if (row > 0) flipTile(index - gridSize); // top
-    if (row < gridSize - 1) flipTile(index + gridSize); // bottom
+    flipTile(newTiles, gridSize, index);
+    if (col > 0) flipTile(newTiles, gridSize, index - 1); // left
+    if (col < gridSize - 1) flipTile(newTiles, gridSize, index + 1); // right
+    if (row > 0) flipTile(newTiles, gridSize, index - gridSize); // top
+    if (row < gridSize - 1) flipTile(newTiles, gridSize, index + gridSize);; // bottom
 
     setTiles(newTiles);
   };
