@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import './Grid.css'; // Optional: Separate styles for the grid
-import { flipSplashArea } from '../utils/flipSplashArea'; // Import the flipping logic
+import './Grid.css'; 
+import { flipSplashArea } from '../utils/flipSplashArea'; 
 import Tile from './tile';
 
 const defaultImage = 'https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Test.jpg'; // Default image URL
@@ -17,7 +17,12 @@ const Grid = ({ gridSize = 5, tile: TileComponent = Tile, imageSrc = defaultImag
   };
 
   return (
-    <div className="grid">
+    <div 
+      className="grid"
+      style={{
+        gridTemplateColumns: `repeat(${gridSize}, 60px)`, // Dynamically set the number of columns
+      }}
+    >
       {tiles.map((flipped, index) => (
         <TileComponent
           key={index}
