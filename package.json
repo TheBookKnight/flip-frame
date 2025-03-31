@@ -1,0 +1,24 @@
+{
+  "name": "flip-frame",
+  "version": "1.0.0",
+  "description": "Flip Frame game template",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/TheBookKnight/flip-frame.git"
+  },
+  "keywords": [
+    "nodejs",
+    "react",
+    "vite"
+  ],
+  "author": "Joshua Cadavez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheBookKnight/flip-frame/issues"
+  },
+  "homepage": "https://github.com/TheBookKnight/flip-frame#readme"
+}
