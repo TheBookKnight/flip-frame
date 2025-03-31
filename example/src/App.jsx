@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './index.css';
-import { Grid, flipSplashArea } from '../../';
+import { Grid, Tile, flipSplashArea } from '../../';
 
 const imageSrc = 'https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Test.jpg';
 const gridSize = 5; // 5x5 grid
@@ -20,6 +20,7 @@ function App() {
       <Grid
         tiles={tiles}
         gridSize={gridSize}
+        tile={Tile}
         onTileClick={handleClick}
         imageSrc={imageSrc}
       />
