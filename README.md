@@ -12,12 +12,6 @@ Install the package using npm or yarn:
 npm install flip-frame
 ```
 
-or
-
-```bash
-yarn add flip-frame
-```
-
 ---
 
 ## Usage
