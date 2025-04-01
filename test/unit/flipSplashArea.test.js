@@ -1,6 +1,6 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert';
-import { flipSplashArea } from '../src/utils/flipSplashArea.js';
+import { flipSplashArea } from '../../src/utils/flipSplashArea.js';
 
 describe('flipSplashArea', () => {
     test('should flip the selected tile and its neighbors', () => {

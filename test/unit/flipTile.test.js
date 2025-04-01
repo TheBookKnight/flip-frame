@@ -1,6 +1,6 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert';
-import { flipTile } from '../src/utils/flipTile.js';
+import { flipTile } from '../../src/utils/flipTile.js';
 
 describe('flipTile', () => {
     test('should flip the selected tile from false to true', () => {
