@@ -3,6 +3,7 @@ import './Grid.css';
 import { flipSplashArea } from '../utils/flipSplashArea'; 
 import { validateImage } from '../utils/validateImage'; // Utility to validate image URLs
 import Tile from './tile';
+import ResetButton from './resetButton'; 
 
 const defaultImage = 'https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Test.jpg'; // Default image URL
 
@@ -48,21 +49,24 @@ const Grid = ({ gridSize = 5, tile: TileComponent = Tile, imageSrc = defaultImag
   };
 
   return (
-    <div 
-      className="grid"
-      style={{
-        gridTemplateColumns: `repeat(${gridSize}, 60px)`, // Dynamically set the number of columns
-      }}
-    >
-      {tiles.map((flipped, index) => (
-        <TileComponent
-          key={index}
-          flipped={flipped}
-          onClick={() => handleClick(index)} // Handle tile click
-          backgroundImage={validImage} // Use the validated image
-          backgroundPosition={`${(index % gridSize) * 100 / (gridSize - 1)}% ${(Math.floor(index / gridSize)) * 100 / (gridSize - 1)}%`}
-        />
-      ))}
+    <div>
+      <div 
+        className="grid"
+        style={{
+          gridTemplateColumns: `repeat(${gridSize}, 60px)`, // Dynamically set the number of columns
+        }}
+      >
+        {tiles.map((flipped, index) => (
+          <TileComponent
+            key={index}
+            flipped={flipped}
+            onClick={() => handleClick(index)} // Handle tile click
+            backgroundImage={validImage} // Use the validated image
+            backgroundPosition={`${(index % gridSize) * 100 / (gridSize - 1)}% ${(Math.floor(index / gridSize)) * 100 / (gridSize - 1)}%`}
+          />
+        ))}
+      </div>
+      <ResetButton gridSize={gridSize} setTiles={setTiles} /> 
     </div>
   );
 };
