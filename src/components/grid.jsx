@@ -13,10 +13,16 @@ const defaultImage = 'https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Te
  * @param {Object} props - The props object for the Grid component.
  * @param {number} [props.gridSize=5] - The size of the grid (e.g., 5 for a 5x5 grid).
  * @param {React.Component} [props.tile=Tile] - The Tile component to render each tile.
+ * @param {React.Component} [props.reset=ResetButton] - The Reset Button component to reset the Flip Frame game tiles.
  * @param {string} [props.imageSrc=defaultImage] - The background image URL for the tiles.
  * @returns {JSX.Element} The rendered Grid component.
  */
-const Grid = ({ gridSize = 5, tile: TileComponent = Tile, imageSrc = defaultImage }) => {
+const Grid = ({ 
+    gridSize = 5, 
+    tile: TileComponent = Tile, 
+    reset: ResetComponent = ResetButton, 
+    imageSrc = defaultImage 
+  }) => {
   const [tiles, setTiles] = useState(Array(gridSize * gridSize).fill(false)); // Manage state internally
   const [validImage, setValidImage] = useState(defaultImage); // State to store the validated image
 
@@ -66,7 +72,7 @@ const Grid = ({ gridSize = 5, tile: TileComponent = Tile, imageSrc = defaultImag
           />
         ))}
       </div>
-      <ResetButton gridSize={gridSize} setTiles={setTiles} /> 
+      <ResetComponent gridSize={gridSize} setTiles={setTiles} /> 
     </div>
   );
 };
