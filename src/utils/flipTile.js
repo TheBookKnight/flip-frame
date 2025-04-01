@@ -6,5 +6,7 @@
  * @returns {void} - This function does not return anything. It modifies the targeted tile in place.
  */
 export const flipTile = (newTiles, index) => {
-    newTiles[index] = !newTiles[index];
+    if (index >= 0 && index < newTiles.length) {
+        newTiles[index] = !newTiles[index];
+    }
 };
