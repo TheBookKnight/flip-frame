@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Grid.css'; 
 import { flipSplashArea } from '../utils/flipSplashArea'; 
 import { validateImage } from '../utils/validateImage'; // Utility to validate image URLs
 import Tile from './tile';
 import ResetButton from './resetButton'; 
+import TurnCounter from './turnCounter'; 
 
 const defaultImage = 'https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Test.jpg'; // Default image URL
 
@@ -25,6 +26,7 @@ const Grid = ({
   }) => {
   const [tiles, setTiles] = useState(Array(gridSize * gridSize).fill(false)); // Manage state internally
   const [validImage, setValidImage] = useState(defaultImage); // State to store the validated image
+  const turnCounterRef = useRef();
 
   useEffect(() => {
     const validate = async () => {
@@ -52,10 +54,16 @@ const Grid = ({
     const newTiles = [...tiles];
     flipSplashArea(newTiles, gridSize, index); // Flip the clicked tile and its neighbors
     setTiles(newTiles); // Update the state
+
+    // Increment the turn counter
+    if (turnCounterRef.current) {
+      turnCounterRef.current.increment(); 
+    }
   };
 
   return (
     <div>
+      <TurnCounter ref={turnCounterRef}/>
       <div 
         className="grid"
         style={{
@@ -72,7 +80,7 @@ const Grid = ({
           />
         ))}
       </div>
-      <ResetComponent gridSize={gridSize} setTiles={setTiles} /> 
+      <ResetComponent gridSize={gridSize} setTiles={setTiles} turnCounterRef={turnCounterRef} /> 
     </div>
   );
 };
