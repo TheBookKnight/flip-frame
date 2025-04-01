@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Flip Frame game template",
   "main": "index.js",
+  "homepage": "https://github.com/TheBookKnight/flip-frame#readme",
+  "bugs": {
+    "url": "https://github.com/TheBookKnight/flip-frame/issues"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,9 +20,5 @@
     "vite"
   ],
   "author": "Joshua Cadavez",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/TheBookKnight/flip-frame/issues"
-  },
-  "homepage": "https://github.com/TheBookKnight/flip-frame#readme"
+  "license": "ISC"
 }
