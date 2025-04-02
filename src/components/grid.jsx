@@ -25,12 +25,20 @@ const Grid = ({
     reset: ResetComponent = ResetButton, 
     imageSrc = defaultImage 
   }) => {
-  const [tiles, setTiles] = useState(Array(gridSize * gridSize).fill(false)); // Manage state internally
+    // Validate gridSize to ensure it's within the range 2 to 10
+  const validatedGridSize = Math.min(10, Math.max(2, gridSize));
+
+  const [tiles, setTiles] = useState(Array(validatedGridSize * validatedGridSize).fill(false)); // Manage state internally
   const [validImage, setValidImage] = useState(defaultImage); // State to store the validated image
   const [isSolved, setIsSolved] = useState(false); // State to track if the puzzle is solved
   const turnCounterRef = useRef();
 
   useEffect(() => {
+    // Validate the gridSize prop
+    if (gridSize < 2 || gridSize > 10) {
+      console.warn(`Invalid gridSize: ${gridSize}. Clamping to range 2-10.`);
+    }
+
     const validate = async () => {
       // Check if the imageSrc is a URL or a local file
       const isLocalFile = /\.(jpg|jpeg|png)$/i.test(imageSrc) && !/^https?:\/\//i.test(imageSrc);
@@ -56,7 +64,7 @@ const Grid = ({
     if (isSolved) return; // Disable interactions if the puzzle is solved
 
     const newTiles = [...tiles];
-    flipSplashArea(newTiles, gridSize, index); // Flip the clicked tile and its neighbors
+    flipSplashArea(newTiles, validatedGridSize, index); // Flip the clicked tile and its neighbors
     setTiles(newTiles); // Update the state
 
     // Increment the turn counter
@@ -80,7 +88,7 @@ const Grid = ({
    * @returns {void}
    */
   const handleReset = () => {
-    setTiles(Array(gridSize * gridSize).fill(false)); // Reset all tiles to false
+    setTiles(Array(validatedGridSize * validatedGridSize).fill(false)); // Reset all tiles to false
     if (turnCounterRef.current) {
       turnCounterRef.current.reset(); // Reset the turn counter
     }
@@ -93,7 +101,7 @@ const Grid = ({
       <div 
         className="grid"
         style={{
-          gridTemplateColumns: `repeat(${gridSize}, 60px)`, // Dynamically set the number of columns
+          gridTemplateColumns: `repeat(${validatedGridSize}, 60px)`, // Dynamically set the number of columns
         }}
       >
         {tiles.map((flipped, index) => (
@@ -102,11 +110,11 @@ const Grid = ({
             flipped={flipped}
             onClick={() => handleClick(index)} // Handle tile click
             backgroundImage={validImage} // Use the validated image
-            backgroundPosition={`${(index % gridSize) * 100 / (gridSize - 1)}% ${(Math.floor(index / gridSize)) * 100 / (gridSize - 1)}%`}
+            backgroundPosition={`${(index % validatedGridSize) * 100 / (validatedGridSize - 1)}% ${(Math.floor(index / validatedGridSize)) * 100 / (validatedGridSize - 1)}%`}
           />
         ))}
       </div>
-      <ResetComponent gridSize={gridSize} setTiles={setTiles} turnCounterRef={turnCounterRef} /> 
+      <ResetComponent gridSize={validatedGridSize} setTiles={setTiles} turnCounterRef={turnCounterRef} /> 
       <SuccessModal
         isVisible={isSolved}
         turns={turnCounterRef.current ? turnCounterRef.current.getTurns() : 0}
