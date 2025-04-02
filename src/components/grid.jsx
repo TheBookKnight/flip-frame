@@ -62,12 +62,18 @@ const Grid = ({
     // Increment the turn counter
     if (turnCounterRef.current) {
       turnCounterRef.current.increment(); 
+
+      // After incrementing, check if the puzzle is solved, which is when 
+      // all tiles are flipped to reveal the image (true)
+      if (newTiles.every((tile) => tile)) {
+        // TODO: Temporary solution to async add a 1-second delay before marking the puzzle as solved
+        setTimeout(() => {
+          setIsSolved(true); // Mark the puzzle as solved
+        }, 1000); // 1000ms = 1 second
+      }
     }
 
-    // Check if the puzzle is solved
-    if (newTiles.every((tile) => !tile)) {
-      setIsSolved(true); // Mark the puzzle as solved
-    }
+    
   };
 
   /**
