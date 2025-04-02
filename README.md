@@ -89,6 +89,49 @@ The `Tile` component represents a single tile in the grid. It supports flipping 
 
 ---
 
+### `TurnCounter`
+
+The `TurnCounter` component displays the number of turns taken in the game.
+
+#### Props
+
+| Prop Name   | Type     | Description                            |
+| ----------- | -------- | -------------------------------------- |
+| `turns`     | `number` | The current number of turns taken.     |
+| `className` | `string` | Optional CSS class for custom styling. |
+
+#### Example
+
+```jsx
+<TurnCounter turns={10} className="turn-counter" />
+```
+
+---
+
+### `SuccessModal`
+
+The `SuccessModal` component displays a congratulatory message when the game is completed.
+
+#### Props
+
+| Prop Name   | Type       | Description                                    |
+| ----------- | ---------- | ---------------------------------------------- |
+| `isVisible` | `boolean`  | Whether the modal is visible or not.           |
+| `onClose`   | `function` | The function to call when the modal is closed. |
+| `message`   | `string`   | The success message to display.                |
+
+#### Example
+
+```jsx
+<SuccessModal
+  isVisible={true}
+  onClose={() => console.log("Modal closed!")}
+  message="Congratulations! You completed the game!"
+/>
+```
+
+---
+
 ## Utilities
 
 ### `flipSplashArea`
