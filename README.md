@@ -49,11 +49,11 @@ The `Grid` component renders a dynamic grid of tiles and handles flipping logic.
 
 #### Props
 
-| Prop Name  | Type              | Default Value                                                      | Description                                           |
-| ---------- | ----------------- | ------------------------------------------------------------------ | ----------------------------------------------------- |
-| `gridSize` | `number`          | `5`                                                                | The size of the grid (e.g., `5` for a 5x5 grid).      |
-| `tile`     | `React.Component` | `Tile`                                                             | The Tile component to render each tile.               |
-| `imageSrc` | `string`          | `https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Test.jpg` | The background image URL or local file for the tiles. |
+| Prop Name  | Type              | Default Value                                                      | Description                                                                 |
+| ---------- | ----------------- | ------------------------------------------------------------------ | --------------------------------------------------------------------------- |
+| `gridSize` | `number`          | `5`                                                                | The size of the grid (e.g., `5` for a 5x5 grid). Should be between 2 to 10. |
+| `tile`     | `React.Component` | `Tile`                                                             | The Tile component to render each tile.                                     |
+| `imageSrc` | `string`          | `https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Test.jpg` | The background image URL or local file for the tiles.                       |
 
 #### Example
 
