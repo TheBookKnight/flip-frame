@@ -29,7 +29,7 @@ const Grid = ({
   const validatedGridSize = Math.min(10, Math.max(2, gridSize));
 
   const [tiles, setTiles] = useState(Array(validatedGridSize * validatedGridSize).fill(false)); // Manage state internally
-  const [validImage, setValidImage] = useState(defaultImage); // State to store the validated image
+  const [validImage, setValidImage] = useState(imageSrc); // State to store the validated image
   const [isSolved, setIsSolved] = useState(false); // State to track if the puzzle is solved
   const turnCounterRef = useRef();
 
