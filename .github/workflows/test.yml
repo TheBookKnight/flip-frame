@@ -24,6 +24,10 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
+      - name: Start Server for E2E Tests
+        run: npm run dev
+        working-directory: ./example
+
       - name: Run Playwright tests
         run: npm run test:e2e
 
