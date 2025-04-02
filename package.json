@@ -1,6 +1,6 @@
 {
   "name": "flip-frame",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Flip Frame game template",
   "main": "index.js",
   "homepage": "https://github.com/TheBookKnight/flip-frame#readme",
@@ -8,7 +8,9 @@
     "url": "https://github.com/TheBookKnight/flip-frame/issues"
   },
   "scripts": {
-    "test": "node --test"
+    "test:unit": "node --test",
+    "test:e2e": "npx playwright test --trace on",
+    "test:e2e:local": "npx playwright test"
   },
   "repository": {
     "type": "git",
@@ -20,5 +22,9 @@
     "vite"
   ],
   "author": "Joshua Cadavez",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^22.13.17"
+  }
 }
