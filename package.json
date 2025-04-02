@@ -9,8 +9,8 @@
   },
   "scripts": {
     "test:unit": "node --test",
-    "test:e2e": "npx playwright test --trace on",
-    "test:e2e:local": "npx playwright test"
+    "test:e2e": "npx playwright test",
+    "test:e2e:local": "npx playwright test --trace on"
   },
   "repository": {
     "type": "git",
