@@ -5,6 +5,7 @@ import { validateImage } from '../utils/validateImage'; // Utility to validate i
 import Tile from './tile';
 import ResetButton from './resetButton'; 
 import TurnCounter from './turnCounter'; 
+import SuccessModal from './successModal';
 
 const defaultImage = 'https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Test.jpg'; // Default image URL
 
@@ -26,6 +27,7 @@ const Grid = ({
   }) => {
   const [tiles, setTiles] = useState(Array(gridSize * gridSize).fill(false)); // Manage state internally
   const [validImage, setValidImage] = useState(defaultImage); // State to store the validated image
+  const [isSolved, setIsSolved] = useState(false); // State to track if the puzzle is solved
   const turnCounterRef = useRef();
 
   useEffect(() => {
@@ -51,6 +53,8 @@ const Grid = ({
    * @returns {void}
    */
   const handleClick = (index) => {
+    if (isSolved) return; // Disable interactions if the puzzle is solved
+
     const newTiles = [...tiles];
     flipSplashArea(newTiles, gridSize, index); // Flip the clicked tile and its neighbors
     setTiles(newTiles); // Update the state
@@ -59,6 +63,24 @@ const Grid = ({
     if (turnCounterRef.current) {
       turnCounterRef.current.increment(); 
     }
+
+    // Check if the puzzle is solved
+    if (newTiles.every((tile) => !tile)) {
+      setIsSolved(true); // Mark the puzzle as solved
+    }
+  };
+
+  /**
+   * Resets the game by resetting the tiles and the turn counter.
+   *
+   * @returns {void}
+   */
+  const handleReset = () => {
+    setTiles(Array(gridSize * gridSize).fill(false)); // Reset all tiles to false
+    if (turnCounterRef.current) {
+      turnCounterRef.current.reset(); // Reset the turn counter
+    }
+    setIsSolved(false); // Allow interactions again
   };
 
   return (
@@ -81,6 +103,11 @@ const Grid = ({
         ))}
       </div>
       <ResetComponent gridSize={gridSize} setTiles={setTiles} turnCounterRef={turnCounterRef} /> 
+      <SuccessModal
+        isVisible={isSolved}
+        turns={turnCounterRef.current ? turnCounterRef.current.getTurns() : 0}
+        onClose={handleReset} // Reset the game when the modal is closed
+      />
     </div>
   );
 };

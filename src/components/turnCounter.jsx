@@ -29,10 +29,18 @@ const TurnCounter = forwardRef((props, ref) => {
     setTurns(0);
   };
 
+  /**
+   * Retrieves the current turn count.
+   *
+   * @returns {number} The current turn count.
+   */
+  const getTurns = () => turns;
+
   // Expose methods to parent components via ref
   useImperativeHandle(ref, () => ({
     increment: incrementTurns,
     reset: resetTurns,
+    getTurns
   }));
 
   return (
