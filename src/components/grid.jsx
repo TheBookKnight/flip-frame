@@ -17,13 +17,15 @@ const defaultImage = 'https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Te
  * @param {React.Component} [props.tile=Tile] - The Tile component to render each tile.
  * @param {React.Component} [props.reset=ResetButton] - The Reset Button component to reset the Flip Frame game tiles.
  * @param {string} [props.imageSrc=defaultImage] - The background image URL for the tiles.
+ * @param {string} [props.tileColor='#ccc'] - The tile color when not flipped. Should be in hex format.
  * @returns {JSX.Element} The rendered Grid component.
  */
 const Grid = ({ 
     gridSize = 5, 
     tile: TileComponent = Tile, 
     reset: ResetComponent = ResetButton, 
-    imageSrc = defaultImage 
+    imageSrc = defaultImage,
+    tileColor = '#ccc'
   }) => {
     // Validate gridSize to ensure it's within the range 2 to 10
   const validatedGridSize = Math.min(10, Math.max(2, gridSize));
@@ -112,6 +114,7 @@ const Grid = ({
             backgroundImage={validImage} // Use the validated image
             backgroundPosition={`${(index % validatedGridSize) * 100 / (validatedGridSize - 1)}% ${(Math.floor(index / validatedGridSize)) * 100 / (validatedGridSize - 1)}%`}
             gridSize={validatedGridSize} 
+            tileColor={tileColor}
           />
         ))}
       </div>
