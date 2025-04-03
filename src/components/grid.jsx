@@ -17,20 +17,31 @@ const defaultImage = 'https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Te
  * @param {React.Component} [props.tile=Tile] - The Tile component to render each tile.
  * @param {React.Component} [props.reset=ResetButton] - The Reset Button component to reset the Flip Frame game tiles.
  * @param {string} [props.imageSrc=defaultImage] - The background image URL for the tiles.
+ * @param {string} [props.tileColor='#ccc'] - The tile color when not flipped. Should be in hex color format.
  * @returns {JSX.Element} The rendered Grid component.
  */
 const Grid = ({ 
     gridSize = 5, 
     tile: TileComponent = Tile, 
     reset: ResetComponent = ResetButton, 
-    imageSrc = defaultImage 
+    imageSrc = defaultImage,
+    tileColor = '#ccc'
   }) => {
-  const [tiles, setTiles] = useState(Array(gridSize * gridSize).fill(false)); // Manage state internally
-  const [validImage, setValidImage] = useState(defaultImage); // State to store the validated image
+    // Validate gridSize to ensure it's within the range 2 to 10
+  const validatedGridSize = Math.min(10, Math.max(2, gridSize));
+
+  const [tiles, setTiles] = useState(Array(validatedGridSize * validatedGridSize).fill(false)); // Manage state internally
+  const [validImage, setValidImage] = useState(imageSrc); // State to store the validated image
   const [isSolved, setIsSolved] = useState(false); // State to track if the puzzle is solved
+  const [finalTurns, setFinalTurns] = useState(0); // State to track if the puzzle is solved
   const turnCounterRef = useRef();
 
   useEffect(() => {
+    // Validate the gridSize prop
+    if (gridSize < 2 || gridSize > 10) {
+      console.warn(`Invalid gridSize: ${gridSize}. Clamping to range 2-10.`);
+    }
+
     const validate = async () => {
       // Check if the imageSrc is a URL or a local file
       const isLocalFile = /\.(jpg|jpeg|png)$/i.test(imageSrc) && !/^https?:\/\//i.test(imageSrc);
@@ -46,6 +57,17 @@ const Grid = ({
     validate();
   }, [imageSrc]);
 
+  // Monitor the `tiles` state to check if the puzzle is solved
+  useEffect(() => {
+    // Check if the puzzle is solved after updating the tiles
+    if (tiles.every((tile) => tile)) {
+      if (turnCounterRef.current) {
+        setFinalTurns(turnCounterRef.current.getTurns()); // Store the final number of turns
+        setIsSolved(true); // Set the puzzle as solved
+      }
+    } 
+  }, [tiles]);
+
   /**
    * Handles the click event for a tile. Flips the clicked tile and its neighbors.
    *
@@ -54,24 +76,17 @@ const Grid = ({
    */
   const handleClick = (index) => {
     if (isSolved) return; // Disable interactions if the puzzle is solved
-
-    const newTiles = [...tiles];
-    flipSplashArea(newTiles, gridSize, index); // Flip the clicked tile and its neighbors
-    setTiles(newTiles); // Update the state
-
-    // Increment the turn counter
+    
     if (turnCounterRef.current) {
-      turnCounterRef.current.increment(); 
-
-      // After incrementing, check if the puzzle is solved, which is when 
-      // all tiles are flipped to reveal the image (true)
-      if (newTiles.every((tile) => tile)) {
-        // TODO: Temporary solution to async add a 1-second delay before marking the puzzle as solved
-        setTimeout(() => {
-          setIsSolved(true); // Mark the puzzle as solved
-        }, 1000); // 1000ms = 1 second
-      }
+      turnCounterRef.current.increment(); // Increment the turn counter
     }
+
+    setTiles((prevTiles) => {
+      const newTiles = [...prevTiles];
+      flipSplashArea(newTiles, validatedGridSize, index); // Flip the clicked tile and its neighbors
+
+      return newTiles; // Update the tiles state
+    });
   };
 
   /**
@@ -80,11 +95,12 @@ const Grid = ({
    * @returns {void}
    */
   const handleReset = () => {
-    setTiles(Array(gridSize * gridSize).fill(false)); // Reset all tiles to false
+    setTiles(Array(validatedGridSize * validatedGridSize).fill(false)); // Reset all tiles to false
     if (turnCounterRef.current) {
       turnCounterRef.current.reset(); // Reset the turn counter
     }
-    setIsSolved(false); // Allow interactions again
+    setFinalTurns(0); // Reset the final turns
+    setIsSolved(false); // Reset solved status
   };
 
   return (
@@ -93,7 +109,7 @@ const Grid = ({
       <div 
         className="grid"
         style={{
-          gridTemplateColumns: `repeat(${gridSize}, 60px)`, // Dynamically set the number of columns
+          gridTemplateColumns: `repeat(${validatedGridSize}, 60px)`, // Dynamically set the number of columns
         }}
       >
         {tiles.map((flipped, index) => (
@@ -102,14 +118,16 @@ const Grid = ({
             flipped={flipped}
             onClick={() => handleClick(index)} // Handle tile click
             backgroundImage={validImage} // Use the validated image
-            backgroundPosition={`${(index % gridSize) * 100 / (gridSize - 1)}% ${(Math.floor(index / gridSize)) * 100 / (gridSize - 1)}%`}
+            backgroundPosition={`${(index % validatedGridSize) * 100 / (validatedGridSize - 1)}% ${(Math.floor(index / validatedGridSize)) * 100 / (validatedGridSize - 1)}%`}
+            gridSize={validatedGridSize} 
+            tileColor={tileColor}
           />
         ))}
       </div>
-      <ResetComponent gridSize={gridSize} setTiles={setTiles} turnCounterRef={turnCounterRef} /> 
+      <ResetComponent gridSize={validatedGridSize} setTiles={setTiles} turnCounterRef={turnCounterRef} /> 
       <SuccessModal
         isVisible={isSolved}
-        turns={turnCounterRef.current ? turnCounterRef.current.getTurns() : 0}
+        turns={finalTurns}
         onClose={handleReset} // Reset the game when the modal is closed
       />
     </div>

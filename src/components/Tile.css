@@ -26,11 +26,12 @@
 }
 
 .tile-front {
-    background-color: white;
+    background: white;
 }
 
 .tile-back {
     background-size: 300px 300px; /* Adjust based on your image size */
     background-position: center;
     transform: rotateY(180deg);
+    background-repeat: no-repeat; /* Prevent the image from repeating */
 }

@@ -49,11 +49,13 @@ The `Grid` component renders a dynamic grid of tiles and handles flipping logic.
 
 #### Props
 
-| Prop Name  | Type              | Default Value                                                      | Description                                           |
-| ---------- | ----------------- | ------------------------------------------------------------------ | ----------------------------------------------------- |
-| `gridSize` | `number`          | `5`                                                                | The size of the grid (e.g., `5` for a 5x5 grid).      |
-| `tile`     | `React.Component` | `Tile`                                                             | The Tile component to render each tile.               |
-| `imageSrc` | `string`          | `https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Test.jpg` | The background image URL or local file for the tiles. |
+| Prop Name   | Type              | Default Value                                                      | Description                                                                 |
+| ----------- | ----------------- | ------------------------------------------------------------------ | --------------------------------------------------------------------------- |
+| `gridSize`  | `number`          | `5`                                                                | The size of the grid (e.g., `5` for a 5x5 grid). Should be between 2 to 10. |
+| `tile`      | `React.Component` | `Tile`                                                             | The Tile component to render each tile.                                     |
+| `reset`     | `React.Component` | `ResetButton`                                                      | The Reset Button component to reset the Flip Frame tiles.                   |
+| `imageSrc`  | `string`          | `https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Test.jpg` | The background image URL or local file for the tiles.                       |
+| `tileColor` | `string`          | `#ccc`                                                             | The tile color when not flipped. Should be in hex color format              |
 
 #### Example
 
@@ -69,12 +71,14 @@ The `Tile` component represents a single tile in the grid. It supports flipping 
 
 #### Props
 
-| Prop Name            | Type       | Description                                                                |
-| -------------------- | ---------- | -------------------------------------------------------------------------- |
-| `flipped`            | `boolean`  | Whether the tile is flipped or not.                                        |
-| `onClick`            | `function` | The function to call when the tile is clicked.                             |
-| `backgroundImage`    | `string`   | The URL or local file path of the background image for the tile.           |
-| `backgroundPosition` | `string`   | The position of the background image for the tile (e.g., `center center`). |
+| Prop Name            | Type       | Description                                                                 |
+| -------------------- | ---------- | --------------------------------------------------------------------------- |
+| `flipped`            | `boolean`  | Whether the tile is flipped or not.                                         |
+| `onClick`            | `function` | The function to call when the tile is clicked.                              |
+| `backgroundImage`    | `string`   | The URL or local file path of the background image for the tile.            |
+| `backgroundPosition` | `string`   | The position of the background image for the tile (e.g., `center center`).  |
+| `gridSize`           | `number`   | The size of the grid (e.g., `5` for a 5x5 grid). Should be between 2 to 10. |
+| `tileColor`          | `string`   | The tile color when not flipped. Should be in hex color format.             |
 
 #### Example
 
@@ -114,11 +118,13 @@ The `SuccessModal` component displays a congratulatory message when the game is 
 
 #### Props
 
-| Prop Name   | Type       | Description                                    |
-| ----------- | ---------- | ---------------------------------------------- |
-| `isVisible` | `boolean`  | Whether the modal is visible or not.           |
-| `onClose`   | `function` | The function to call when the modal is closed. |
-| `message`   | `string`   | The success message to display.                |
+| Prop Name     | Type       | Description                                                                   |
+| ------------- | ---------- | ----------------------------------------------------------------------------- |
+| `isVisible`   | `boolean`  | Whether the modal is visible or not.                                          |
+| `turns`       | `number`   | The number of turns it took to solve the puzzle.                              |
+| `message`     | `string`   | The success message to display.                                               |
+| `renderTurns` | `function` | Function to customize the rendering of the turns message. You can input HTML. |
+| `onClose`     | `function` | The function to call when the modal is closed.                                |
 
 #### Example
 
