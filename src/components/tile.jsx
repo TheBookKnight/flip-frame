@@ -1,5 +1,6 @@
 import React from 'react';
 import './Tile.css'; // Reuse the same CSS file for tile styles
+import { validateHexColor } from '../utils/validateHexColor'; // Utility to validate hex color
 
 /**
  * A single tile component that supports flipping and displays a background image.
@@ -14,13 +15,15 @@ import './Tile.css'; // Reuse the same CSS file for tile styles
  * @returns {JSX.Element} The rendered Tile component.
  */
 const Tile = ({ flipped, onClick, backgroundImage, backgroundPosition, gridSize, tileColor }) => {
+  const validTileColor = validateHexColor(tileColor); 
+
   return (
     <div className={`tile ${flipped ? 'flipped' : ''}`} onClick={onClick}>
       <div className="tile-inner">
         <div
           className="tile-front"
           style={{
-            backgroundColor: tileColor
+            backgroundColor: validTileColor
           }}
         ></div>
         <div
