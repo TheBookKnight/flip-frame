@@ -11,7 +11,7 @@ import './Tile.css'; // Reuse the same CSS file for tile styles
  * @param {string} props.backgroundPosition - The position of the background image for the tile.
  * @returns {JSX.Element} The rendered Tile component.
  */
-const Tile = ({ flipped, onClick, backgroundImage, backgroundPosition }) => {
+const Tile = ({ flipped, onClick, backgroundImage, gridSize, backgroundPosition }) => {
   return (
     <div className={`tile ${flipped ? 'flipped' : ''}`} onClick={onClick}>
       <div className="tile-inner">
@@ -21,6 +21,7 @@ const Tile = ({ flipped, onClick, backgroundImage, backgroundPosition }) => {
           style={{
             backgroundImage: `url(${backgroundImage})`,
             backgroundPosition: backgroundPosition,
+            backgroundSize: `${gridSize * 100}% ${gridSize * 100}%`,
           }}
         ></div>
       </div>

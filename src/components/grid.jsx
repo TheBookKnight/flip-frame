@@ -111,6 +111,7 @@ const Grid = ({
             onClick={() => handleClick(index)} // Handle tile click
             backgroundImage={validImage} // Use the validated image
             backgroundPosition={`${(index % validatedGridSize) * 100 / (validatedGridSize - 1)}% ${(Math.floor(index / validatedGridSize)) * 100 / (validatedGridSize - 1)}%`}
+            gridSize={validatedGridSize} 
           />
         ))}
       </div>
