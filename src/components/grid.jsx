@@ -33,6 +33,7 @@ const Grid = ({
   const [tiles, setTiles] = useState(Array(validatedGridSize * validatedGridSize).fill(false)); // Manage state internally
   const [validImage, setValidImage] = useState(imageSrc); // State to store the validated image
   const [isSolved, setIsSolved] = useState(false); // State to track if the puzzle is solved
+  const [finalTurns, setFinalTurns] = useState(0); // State to track if the puzzle is solved
   const turnCounterRef = useRef();
 
   useEffect(() => {
@@ -56,6 +57,17 @@ const Grid = ({
     validate();
   }, [imageSrc]);
 
+  // Monitor the `tiles` state to check if the puzzle is solved
+  useEffect(() => {
+    // Check if the puzzle is solved after updating the tiles
+    if (tiles.every((tile) => tile)) {
+      if (turnCounterRef.current) {
+        setFinalTurns(turnCounterRef.current.getTurns()); // Store the final number of turns
+        setIsSolved(true); // Set the puzzle as solved
+      }
+    } 
+  }, [tiles]);
+
   /**
    * Handles the click event for a tile. Flips the clicked tile and its neighbors.
    *
@@ -64,24 +76,17 @@ const Grid = ({
    */
   const handleClick = (index) => {
     if (isSolved) return; // Disable interactions if the puzzle is solved
-
-    const newTiles = [...tiles];
-    flipSplashArea(newTiles, validatedGridSize, index); // Flip the clicked tile and its neighbors
-    setTiles(newTiles); // Update the state
-
-    // Increment the turn counter
+    
     if (turnCounterRef.current) {
-      turnCounterRef.current.increment(); 
-
-      // After incrementing, check if the puzzle is solved, which is when 
-      // all tiles are flipped to reveal the image (true)
-      if (newTiles.every((tile) => tile)) {
-        // TODO: Temporary solution to async add a 1-second delay before marking the puzzle as solved
-        setTimeout(() => {
-          setIsSolved(true); // Mark the puzzle as solved
-        }, 1000); // 1000ms = 1 second
-      }
+      turnCounterRef.current.increment(); // Increment the turn counter
     }
+
+    setTiles((prevTiles) => {
+      const newTiles = [...prevTiles];
+      flipSplashArea(newTiles, validatedGridSize, index); // Flip the clicked tile and its neighbors
+
+      return newTiles; // Update the tiles state
+    });
   };
 
   /**
@@ -94,7 +99,8 @@ const Grid = ({
     if (turnCounterRef.current) {
       turnCounterRef.current.reset(); // Reset the turn counter
     }
-    setIsSolved(false); // Allow interactions again
+    setFinalTurns(0); // Reset the final turns
+    setIsSolved(false); // Reset solved status
   };
 
   return (
@@ -121,7 +127,7 @@ const Grid = ({
       <ResetComponent gridSize={validatedGridSize} setTiles={setTiles} turnCounterRef={turnCounterRef} /> 
       <SuccessModal
         isVisible={isSolved}
-        turns={turnCounterRef.current ? turnCounterRef.current.getTurns() : 0}
+        turns={finalTurns}
         onClose={handleReset} // Reset the game when the modal is closed
       />
     </div>
