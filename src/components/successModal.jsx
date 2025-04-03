@@ -8,7 +8,7 @@ import './SuccessModal.css'; // Optional: Add styles for the modal
  * @param {boolean} props.isVisible - Whether the modal is visible.
  * @param {number} props.turns - The number of turns it took to solve the puzzle.
  * @param {string} [props.message="Congratulations!"] - The success message to display in the modal.
- * @param {function} [props.renderTurns] - Function to customize the rendering of the turns message. Can insert HTML.
+ * @param {function} [props.renderTurns] - Function to customize the rendering of the turns message. You can input HTML.
  * @param {function} props.onClose - Callback to close the modal.
  * @returns {JSX.Element|null} The rendered SuccessModal component or null if not visible.
  */

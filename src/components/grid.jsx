@@ -17,7 +17,7 @@ const defaultImage = 'https://upload.wikimedia.org/wikipedia/commons/2/28/JPG_Te
  * @param {React.Component} [props.tile=Tile] - The Tile component to render each tile.
  * @param {React.Component} [props.reset=ResetButton] - The Reset Button component to reset the Flip Frame game tiles.
  * @param {string} [props.imageSrc=defaultImage] - The background image URL for the tiles.
- * @param {string} [props.tileColor='#ccc'] - The tile color when not flipped. Should be in hex format.
+ * @param {string} [props.tileColor='#ccc'] - The tile color when not flipped. Should be in hex color format.
  * @returns {JSX.Element} The rendered Grid component.
  */
 const Grid = ({ 
