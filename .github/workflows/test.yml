@@ -3,6 +3,11 @@ name: Unit and E2E Tests Workflow
 on:
   pull_request:
     branches: ["main"]
+    paths-ignore:
+      - ".github/pull_request_template.md"
+      - ".github/workflows/deploy.yml"
+      - "README.md"
+      - "example/README.md"
 
 jobs:
   test:
